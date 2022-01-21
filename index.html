@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script href="modal_window.js"></script>
+    <meta charset="UTF-8" />
+    <title>Test</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <div style="text-align: center;">
+      <a href="#openModal">Open dialog window</a>
+    </div>
+
+    <div class="modal" id="openModal" >
+      <div class="modal_dialog">
+        <div class="modal_content">
+          <div class="modal_header">
+            <h3 class="modal_title">Test form</h3>
+            <a href="#close" title="Close">
+              <img src="close.png" class="close"></img>
+            </a>
+          </div>
+          <div class="modal_body" style="text-align:center">
+            <form class="field" action="handling_page.php" method="post" >
+                  <input type="text" id="firstname" name="user_firstname" placeholder="First Name">
+                  <br>
+                  <br>
+                  <input type="text" id="lastname" name="user_lastname" placeholder="Last Name">
+                  <br>
+                  <br>
+                  <input type="email" id="mail" name="user_mail" placeholder="Email">
+                  <br>
+                  <br>
+                  <textarea id="msg" name="user_message" placeholder="Your comment"></textarea>
+                  <br>
+                  <br>
+                  <label for="product_type">Product type:</label> <select id="product_type" onchange="calc();" placeholder="Select product">
+                    <option value="0" disabled selected>Select your product</option>
+                    <option value="50">$50 Product</option>
+                    <option value="100">$100 Product</option>
+                    <option value="300">$300 Product</option>
+                  </select>
+                  <br>
+                  <br>
+                  <label for="addition1">Additional feature for $100</label> <input type="checkbox" id="addition1" onclick="calc();">
+                  <br>
+                  <br>
+                  <label for="addition2">Additional feature for $200</label> <input type="checkbox" id="addition2" onclick="calc();">
+                  <br>
+                  <br>
+                  <div >
+                    Total cost: <p id="cost_calc"></p><!-- Total cost calculation  $-->
+                  </div>
+                  <br>
+                  <br>
+                  <input type = "submit" value = "Send form" >
+                
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    var addCost = 0;
+    var productCost = 0;
+    document.getElementById("cost_calc").innerHTML = productCost;
+    function calc()
+    {
+      productCost = document.getElementById('product_type').value;
+      productCost = parseInt(productCost, 10);
+
+      if (document.getElementById('addition1').checked && document.getElementById('addition2').checked) 
+      {
+        addCost = 300;
+      }
+      else if (document.getElementById('addition2').checked) 
+      {
+        addCost = 200;
+      }
+      else if (document.getElementById('addition1').checked) 
+      {
+        addCost = 100;
+      }
+      else if ((document.getElementById('addition1').checked && document.getElementById('addition2').checked) == false) 
+      {
+        addCost = 0;
+      }
+
+      productCost += addCost;
+      document.getElementById("cost_calc").innerHTML = productCost;
+    }
+    </script>
+  </body>
+
+</html>
